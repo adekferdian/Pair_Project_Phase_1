@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Movie</h1>
+    <form action="/users/<%=data.id%>/editUser" method="POST">
+        <label for="first_name">First Name</label><br>
+        <input value="<%=data.first_name %>" type="text" placeholder="John"><br>
+        <label for="last_name">Last Name</label><br>
+        <input value="<%=data.last_name %>" type="text" placeholder="Doe"><br>
+        <label for="email">Email</label><br>
+        <input value="<%=data.email %>" type="email" placeholder="example@mail.com"><br>
+        <label for="password">Password</label><br>
+        <input value="<%=data.password %>" type="password"><br>
+        <label for="birthdate">Birth Date</label><br>
+        <input value="<%=data.birthdate %>" type="date"><br>
+        <label for="gender">Gender</label><br>
+        <select>
+            <option value="male" value="male">Male</option>
+            <option value="female" value="Female">Female</option>
+        </select><br>
+        <label for="phone_number">Phone Number</label><br>
+        <input value="<%= data.phone_number %>" type="text"><br><br>
+        <input type="submit" value="Submit"><br>
+    </form>
+</body>
+</html>
