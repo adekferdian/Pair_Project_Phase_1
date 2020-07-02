@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('partials/header') %>
+
     <h1>Edit Movie</h1>
     <form action="/users/<%=data.id%>/editUser" method="POST">
         <label for="first_name">First Name</label><br>
@@ -27,5 +21,4 @@
         <input value="<%= data.phone_number %>" type="text"><br><br>
         <input type="submit" value="Submit"><br>
     </form>
-</body>
-</html>
+<%- include('partials/footer') %>
