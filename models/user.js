@@ -14,16 +14,77 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    birthdate: DataTypes.DATE,
-    gender: DataTypes.STRING,
-    phone_number: DataTypes.INTEGER
+    first_name: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "First Name is Required"
+        }
+      }
+    },
+    last_name: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "Last Name is Required"
+        }
+      }
+    },
+    email: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "Email is Required"
+        }
+      }
+    },
+    password: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "Password is Required"
+        }
+      }
+    },
+    birthdate: {
+      type:DataTypes.DATE,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "Birthdate is Required"
+        }
+      }
+    },
+    gender: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "Gender is Required"
+        }
+      }
+    },
+    phone_number: {
+      type:DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "Phone Number is Required"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
   });
+  User.beforeCreate((instance,options)=>{
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(instance.password, salt);
+    instance.password = hash
+  })
   return User;
 };

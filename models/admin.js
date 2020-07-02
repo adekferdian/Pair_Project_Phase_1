@@ -14,16 +14,85 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Admin.init({
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
-    birthdate: DataTypes.DATE,
-    gender: DataTypes.STRING
+    first_name: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: "First Name is Required"
+        }
+      }
+    }
+      ,
+    last_name: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+            args:true,
+            msg:"Last Name is Required"
+        }
+      }
+    },
+    username: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+            args:true,
+            msg:"Username is Required"
+        }
+      }
+    },
+    password: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+            args:true,
+            msg:"Password is Required"
+        }
+      }
+    }
+      ,
+    email: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+            args:true,
+            msg:"Email is Required"
+        }
+      }
+    },
+    birthdate: {
+      type: DataTypes.DATE,
+      validate:{
+        notEmpty:{
+            args:true,
+            msg:"Birthdate is Required"
+        }
+      }
+    },
+    gender: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+            args:true,
+            msg:"Gender is Required"
+        }
+      }
+    }
   }, {
+    hooks: {
+    beforeCreate: (admin, options) => {
+      admin.status = false;
+    }
+  },
     sequelize,
     modelName: 'Admin',
   });
+
+  Admin.beforeCreate((instance,options)=>{
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(instance.password, salt);
+    instance.password = hash
+  })
   return Admin;
 };
